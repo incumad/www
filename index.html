@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Haz tu consulta en ED ya veras pep</title>
+    <title>Haz tu consulta en ED</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
@@ -22,12 +22,11 @@
     
     function onDeviceReady() {
 
-       if (parseFloat(window.device.version) >= 7.0) {
-         $('#home').addClass("ios7");
-         $('#ver-ideas').addClass("ios7");
-         $('#nueva-idea').addClass("ios7");
-       //$('#home').addClass("ios7");
-        }
+       if (parseFloat(window.device.version) >= 7.0) { 
+           $('[data-role="header"]').addClass("ios7");
+            $('[data-role="panel"]').addClass("ios7");
+       }
+         
 
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
@@ -288,15 +287,12 @@
     </style>
   </head>
   <body>
-      <div data-role="page" id="inicio" style ="background: transparent url(img/eclectic-living-room.jpg) no-repeat  center center;"  >
-          
-          <div data-role="header">
-              <h1>Espacio<strong>Deco</strong></h1>
-              
-          </div>
+      <div data-role="page" id="inicio" style ="background: transparent url(img/livingroom-ChicDeco.jpg) no-repeat  center center; max-width: 100%;"  >
+  
           
           <div data-role="content" >
-              
+              <p><img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" /></p>
+              <br>
               <form id="formulario"   >
                   <input  value="facebook" type="button" data-theme="b" onclick="loginFB()"  >
                       <p style="margin-top:20px;"></p>
@@ -312,11 +308,12 @@
        
       </div>
       <div data-url="home" data-role="page" id="home"   >
-          <div data-role="header"  data-theme="c" data-position="fixed" data-fullscreen="true">
+          <div data-role="header"  data-theme="c" data-position="fixed" >
               
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
-                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/></a></li>
+                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false">
+                            <img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/></a></li>
                 </ul>
             </div><!-- /navbar -->
               <!--h1>Home</h1>
@@ -328,7 +325,6 @@
                      <img src="img/livingroom-ChicDeco.jpg" alt="">
                      <img src="img/eclectic-living-room.jpg" alt="">
                      <img src="img/green-streeped-room.jpg" alt="">
-                     <img src="img/transitional-kitchen.jpg" alt="">
                       <img src="img/comedor-verano-junto-a-piscina-summer-dining-room-ft-ChicDeco.jpg" alt="">
                      
                   </div>
@@ -338,23 +334,25 @@
               <ul data-role="listview" data-theme="d">
                   <li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
                   <li data-role="list-divider">Home</li>
-                  <li><a href="#nueva-idea" >Envia Idea</a></li>
-                  <li><a href="#ver-ideas" >ver tus Ideas</a></li>
+                  <li><a href="#nueva-idea" >Hacer pregunta</a></li>
+                  <li><a href="#ver-ideas" >Mis preguntas</a></li>
+                    <li><a href="#ver-ideas">Ver favoritos</a></li>
+                  <li><a href="#ver-ideas" >Espacio deco</a></li>
               </ul>
           </div><!-- /panel -->
           <div data-role="footer" data-position="fixed" data-theme="c">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#nueva-idea" data-icon="grid">Enviar Idea</a></li>
-                        <li><a href="http://www.espaciodeco.com" data-icon="star">Espacio deco</a></li>
-                        <li><a href="#ver-ideas" data-icon="gear">Mis ideas</a></li>
+                        <li><a href="#nueva-idea" data-icon="grid">Hecer Pregunta</a></li>
+                        <li><a href="#ver-ideas" data-icon="star">Mis preguntas</a></li>
+                        <li><a href="#marcar-faviritos" data-icon="gear">Marcar favoritos</a></li>
                     </ul>
                 </div><!-- /navbar -->
           </div><!-- /footer -->
     
       </div>
       <div data-url="nueva-idea" data-role="page" id="nueva-idea" data-theme="d">
-          <div data-role="header"  data-theme="c" data-position="fixed" data-fullscreen="true">
+          <div data-role="header"  data-theme="c" data-position="fixed" >
               
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
@@ -384,15 +382,15 @@
              <div data-role="footer" data-position="fixed" data-theme="c">
                 <div data-role="navbar" >
                     <ul>
-                        <li><a href="#nueva-idea" data-icon="grid">Enviar Idea</a></li>
-                        <li><a href="http://www.espaciodeco.com" data-icon="star">Espacio deco</a></li>
-                        <li><a href="#ver-ideas" data-icon="gear">Mis ideas</a></li>
+                        <li><a href="#nueva-idea" data-icon="grid">Hacer pregunta</a></li>
+                        <li><a href="#ver-ideas" data-icon="star">Mis preguntas</a></li>
+                        <li><a href="#ver-ideas" data-icon="gear">Marcar Favoritos</a></li>
                     </ul>
                 </div><!-- /navbar -->
           </div><!-- /footer -->
       </div>
       <div data-url="ver-ideas" data-role="page" id="ver-ideas" data-theme="d" style="padding: 0 0 30px 0;">
-          <div data-role="header"  data-theme="c" data-position="fixed" data-fullscreen="true">
+          <div data-role="header"  data-theme="c" data-position="fixed" >
               
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
