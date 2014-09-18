@@ -140,3 +140,10 @@ function printQuestionList(tx, results) {
     }
     $("#listQuestions").listview('refresh');
 }
+
+// 
+//
+function getQuestionInfo(idQuestion) {
+    
+    
+}

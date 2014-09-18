@@ -340,6 +340,7 @@
                   <li data-role="list-divider">Home</li>
                   <li><a href="#nueva-idea" >Envia Idea</a></li>
                   <li><a href="#ver-ideas" >ver tus Ideas</a></li>
+                  <li><a href="#question" >question test</a></li>
               </ul>
           </div><!-- /panel -->
           <div data-role="footer" data-position="fixed" data-theme="c">
@@ -415,6 +416,7 @@
                   <li><a href="#home" >Home</a></li>
                   <li><a href="#nueva-idea" >Envia Idea</a></li>
                   <li data-role="list-divider">ver tus Ideas</li>
+                  
               </ul>
           </div><!-- /panel -->
              <div data-role="footer" data-position="fixed" data-theme="c">
@@ -428,13 +430,66 @@
           </div><!-- /footer -->
           
       </div>
-     <!-- <br/><br/>
-    <button onclick="capturePhoto();">Saca una foto</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">O usa una que ya tenías</button><br>
-    <img style="display:none;" id="largeImage" src="" />
-    <input type="text" id="titulo" placeholder='Ejemplo de titular: "Necesito ayuda para cocina" o "Nuestro patio"' name="firstname"><br>
-    <textarea placeholder="Escribe aquí tu consulta" id="pregunta"></textarea><br>
-    <input type="button" id="btnSubmit" value="Preguntar" onclick="uploadPhoto();">-->
+      
+      <div data-url="question" data-role="page" id="question"   >
+        <div data-role="header"  data-theme="c" data-fullscreen="true">
+           <div data-role="navbar" data-iconpos="left" id='nav-header' >
+               <ul>
+                  <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img style="max-width: 75%" border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/></a></li>
+               </ul>
+          </div>
+        </div>
+        <div data-role="content" style="padding: 3px;" >
+            <p>Lo preguntaste el 17/09/2014</p>
+            <h1>Cómo puedo mejorar el salon</h1>
+            <p>Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total xv</p>
+            <img src="img/livingroom-ChicDeco.jpg" alt="">
+            <br/>
+            <strong>Comentarios</strong>
+            <hr/>
+            <div id="comentarios">
+            <div>
+                <div style="float: left;width: 15%;"><img src="img/users/default.jpg"/></div>
+                <div style="float: left;width: 85%;"><strong>Javi</strong><p>Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos  Pues haz que sea la mas bonita de todas ni mas ni menos</p></div>
+            </div>
+            <hr style="clear: both;"/>
+            <div>
+                <div style="float: left;width: 15%;"><img src="img/users/default.jpg"/></div>
+                <div style="float: left;width: 85%;"><strong>María</strong><p>Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos  Pues haz que sea la mas bonita de todas ni mas ni menos</p>
+                    <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/livingroom-ChicDeco.jpg" alt="Paris, France" style="width:25%"></a>
+                    <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
+                        <img class="popphoto" src="img/livingroom-ChicDeco.jpg" style="max-height:512px;" alt="Paris, France">
+                    </div>
+            </div>
+            </div>
+            </div>
+            
+            
+            <div data-role="content">
+              <h2>Algo que comentar</h2>
+              <input  value="Saca una foto" type="button" data-theme="b" onclick="capturePhoto();"  >
+              <input  value="O usa una que ya tenías" type="button" data-theme="e" onclick="getPhoto(pictureSource.PHOTOLIBRARY);"  >
+              <p style="margin-top:20px;"><img style="display:none;" id="largeImage" src="" width="80" height="80" /></p>
+              <input name="firstname" id="titulo" placeholder='Ejemplo de titular: "Necesito ayuda para cocina" o "Nuestro patio"'  type="text"  >
+              <textarea cols="40" rows="8" data-mini="true" placeholder="Escribe aquí tu consulta" id="pregunta"></textarea>
+              <input type="button" data-theme="b" id="btnSubmit" value="Manda tu comentario" onclick="uploadPhoto();"  >
+            </div><!-- /content -->
+            
+            
+             
+         </div><!-- /content -->
+          
+         <div data-role="footer" data-theme="c">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#nueva-idea" data-icon="grid">Enviar Idea</a></li>
+                        <li><a onclick="window.open(encodeURI('http://apache.org'), '_blank', 'location=yes');" href="#" data-icon="star">Espacio deco</a></li>
+                        <li><a href="#ver-ideas" data-icon="gear">Mis ideas</a></li>
+                    </ul>
+                </div><!-- /navbar -->
+          </div><!-- /footer -->
+    
+      </div>
     
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/openfb.js"></script>
@@ -444,20 +499,20 @@
     <script src="js/db.js"></script>
     <script src="js/question.js"></script>
     <script>
-      
-          
-          $("#home").on("pageshow",function(){
-                        $('#slides').slidesjs({
-                                              width: 940,
-                                              height: 1280,
-                                              navigation: false
-                                              });
-                        
-                        });
-          $("#ver-ideas").on("pageshow",function(){
-                            getQuestionList();
-                    });
-                        
+        $("#home").on("pageshow",function(){
+                      $('#slides').slidesjs({
+                                            width: 940,
+                                            height: 1280,
+                                            navigation: false
+                                            });
+
+                      });
+        $("#ver-ideas").on("pageshow",function(){
+                          getQuestionList();
+                  });
+        $("question").on("pageshow",function(){
+                getQuestionInfo(idQuestionActive);
+        });             
     </script>
 
     
