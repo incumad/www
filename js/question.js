@@ -75,7 +75,7 @@ function uploadPhoto() {
         alert('Please select an image first.');
         return;
     }
-
+    
     //set upload options
     var options = new FileUploadOptions();
     options.fileKey = "file";
@@ -83,8 +83,9 @@ function uploadPhoto() {
     options.mimeType = "image/jpeg";
     // this will get value of text field
     options.params = {
-        titulo: document.getElementById("titulo").value,
-        pregunta: document.getElementById("pregunta").value
+        title: document.getElementById("titulo").value,
+        content: document.getElementById("pregunta").value
+        // mandar id usuario
     };
 
     var ft = new FileTransfer();
@@ -107,6 +108,8 @@ function fail(error) {
 function questionCreatioSuccess(r) {
     var data;
     
+    //code message
+    
     var jsonResponse = JSON.parse(r.response);
     data = {
         id: jsonResponse.id,
@@ -120,30 +123,101 @@ function questionCreatioSuccess(r) {
     insertQuestion(data,showMessageAQ);
 }
 
-function getQuestionList() {
-    queryDB("parent_id = ''",printQuestionList);
-}
-
 // show a success message after create a question
 function showMessageAQ(){
     alert('Gracias por mandarnos tu pregunta en breve tendras una respuesta');
 }
 
+function getQuestionList() {
+    //id y date
+    //array(array(title, img, answersCount, newAnswersCount)
+    //mobile/comentarios/list
+    var 
+    //ws = 'http://www.espaciodeco.com/mobile/comentarios/list',
+    ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=21', // TODO Comentar
+    userId = localStorage.getItem("user_id"),
+    date = localStorage.getItem("last_login");
+    
+    $.post( ws, { id: userId, date: date }, successQuestionList , "json");
+}
 
 // Print in list view all parent questions 
 //
-function printQuestionList(tx, results) {
-    var len = results.rows.length;
+function successQuestionList(data) {
     $('#listQuestions').html('');
-    for (var i=0; i<len; i++){
-        $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + results.rows.item(i).id +  '\';$.mobile.changePage("#question");" href="#">' + results.rows.item(i).title +  '<img src="' + results.rows.item(i).img_src +  '" /></a><span class="ui-li-count ui-body-inherit">1</span></li>');
-    }
+    $.each(data, function(position, info){
+        $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#">' + info.title +  '<img src="' + info.img +  '" /></a> <span style="margin-right:20px;" class="ui-li-aside">' + info.date +  '</span>' + ((info.hasOwnProperty('newAnswersCount'))?'<span class="ui-li-count">' + info.newAnswersCount + '</span>':'') + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
+    });
     $("#listQuestions").listview('refresh');
 }
 
 // 
 //
 function getQuestionInfo(idQuestion) {
-    
+    // mobile/comentarios/thread
+    // id(usuario), date
+    var 
+    //ws = 'http://www.espaciodeco.com/mobile/comentarios/thread',
+    ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=22', // TODO Comentar
+    userId = localStorage.getItem("user_id"),
+    date = localStorage.getItem("last_login");
+    $.post( ws, { id: userId, questionId: idQuestion, date: date }, successQuestionInfo , "json");
+}
+
+
+function successQuestionInfo(data){
+    var 
+        sQuestion = '<p>Lo preguntaste el '+ data.date +'</p><h1>'+ data.title +'</h1><p>'+ data.content +'</p><img src="'+ data.img +'" alt=""><br/><strong>Comentarios</strong><hr/><div id="comentarios">',
+        
+        sAnswer = '<div><div style="float: left;width: 15%;"><img src="img/users/default.jpg"/></div><div style="float: left;width: 85%;"><strong>%user%</strong><p>%content%</p></div>';
+
+        sAnswerImg = '<a href="#%id%" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="%img%" style="width:25%"></a>';
+        sAnswerImg += '<div data-role="popup" id="%id%" data-overlay-theme="b" data-theme="b" data-corners="false">';
+        sAnswerImg += '    <img class="popphoto" src="%img%" style="max-height:512px;">';
+        sAnswerImg += '</div>';
+        sItemAnswer = '',sItemImg = '';
+
+        $('#contentQuestion').html('');
+        
+        if (data.hasOwnProperty('answers')) {
+            
+            $.each(data.answers, function(position, answerInfo){
+                
+                sItemAnswer = sAnswer.replace("%user%", answerInfo.user);
+                sItemAnswer = sItemAnswer.replace("%content%", answerInfo.content);
+                if (answerInfo.hasOwnProperty('userImg')) {
+                    sItemAnswer = sItemAnswer.replace("img/users/default.jpg", answerInfo.userImg);
+                }
+                
+                sQuestion += sItemAnswer;  
+                
+                if (answerInfo.hasOwnProperty('img')) {
+                    
+                    $.each(answerInfo.img, function(position, imgInfo) {
+                        //sItemImg = sAnswerImg.replace("%img%", imgInfo);
+                        // varias ocurrencias
+                        sItemImg = sAnswerImg.replace(/%img%/g,imgInfo);
+                        sItemImg = sItemImg.replace(/%id%/g,answerInfo.id+'-'+position);
+                        
+                        sQuestion += sItemImg;        
+                    });
+                    
+                }
+                
+                sQuestion += '</div><hr style="clear: both;"/>'
+                
+            });
+        }
+        
+        $('#contentQuestion').html(sQuestion);
+        
+        $('#contentQuestion').trigger("create");
+        
+}
+
+function uploadComent(){
+    // igual que question pero sin title
+    // id, questionId, content, img
+    // mobile/comentarios/add (el mismo de antes como tiene question id server lo gestiona)
     
 }

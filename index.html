@@ -41,7 +41,12 @@
             
             //$.mobile.changePage("#home");
         }
+        
+        $.support.cors = true;
+        
         //alert(fbToken);
+        $.support.cors = true;
+        $.mobile.allowCrossDomainPages = true;
         
         //app.initialize();
         $( "#registro" ).click(function() {
@@ -393,7 +398,7 @@
           </div><!-- /footer -->
       </div>
       <div data-url="ver-ideas" data-role="page" id="ver-ideas" data-theme="d" style="padding: 0 0 30px 0;">
-          <div data-role="header"  data-theme="c" data-position="fixed" data-fullscreen="true">
+          <div data-role="header"  data-theme="c" data-fullscreen="true">
               
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
@@ -430,8 +435,8 @@
           </div><!-- /footer -->
           
       </div>
-      
-      <div data-url="question" data-role="page" id="question"   >
+
+      <div data-url="question" data-role="page" id="question" data-theme="d">
         <div data-role="header"  data-theme="c" data-fullscreen="true">
            <div data-role="navbar" data-iconpos="left" id='nav-header' >
                <ul>
@@ -439,7 +444,7 @@
                </ul>
           </div>
         </div>
-        <div data-role="content" style="padding: 3px;" >
+        <div data-role="content" id="contentQuestion" style="padding: 3px;" >
             <p>Lo preguntaste el 17/09/2014</p>
             <h1>Cómo puedo mejorar el salon</h1>
             <p>Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total xv</p>
@@ -464,19 +469,15 @@
             </div>
             </div>
             
-            
             <div data-role="content">
               <h2>Algo que comentar</h2>
               <input  value="Saca una foto" type="button" data-theme="b" onclick="capturePhoto();"  >
               <input  value="O usa una que ya tenías" type="button" data-theme="e" onclick="getPhoto(pictureSource.PHOTOLIBRARY);"  >
               <p style="margin-top:20px;"><img style="display:none;" id="largeImage" src="" width="80" height="80" /></p>
-              <input name="firstname" id="titulo" placeholder='Ejemplo de titular: "Necesito ayuda para cocina" o "Nuestro patio"'  type="text"  >
-              <textarea cols="40" rows="8" data-mini="true" placeholder="Escribe aquí tu consulta" id="pregunta"></textarea>
+              <textarea cols="40" rows="8" data-mini="true" placeholder="Escribe aquí tu comentario" id="comentario"></textarea>
               <input type="button" data-theme="b" id="btnSubmit" value="Manda tu comentario" onclick="uploadPhoto();"  >
             </div><!-- /content -->
             
-            
-             
          </div><!-- /content -->
           
          <div data-role="footer" data-theme="c">
@@ -507,10 +508,12 @@
                                             });
 
                       });
+                      
         $("#ver-ideas").on("pageshow",function(){
                           getQuestionList();
                   });
-        $("question").on("pageshow",function(){
+                  
+        $("#question").on("pageshow",function(){
                 getQuestionInfo(idQuestionActive);
         });             
     </script>
