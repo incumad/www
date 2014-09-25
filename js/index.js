@@ -47,3 +47,82 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+
+
+
+function loadHomeBanner(){
+    var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=5";
+        $.getJSON( url, {check:'5'})
+            .done(function(data) {
+               //alert(data.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)
+                //alert(data.validation);  
+           
+                $.each( data, function( key, value ) {
+                //alert( key + ": " + value.img );
+                     $('#slides').append('<img src="'+value.img+'" alt="">');
+                });
+              
+            });
+    return false;
+}
+
+
+
+function getDate(){
+   
+    return strDate;
+}
+
+
+
+ $("#inicio").on("pageshow",function(){
+         
+     $( "#frm_login" ).validate({
+             rules: {
+			user: {
+				required: true,email:true
+			},
+			password: {
+				required: true
+			}
+		   },
+            messages: {
+			user: {
+                            required: "Email es obligatorio",
+			    email: "El email no es correcto"
+			},
+			password: "La contraseña es obligatoria"
+		  },
+            focusInvalid: false,
+            errorLabelContainer: $("#frm_login div.error"),
+            submitHandler: function() {
+                basicLogin();         
+            }
+        });
+});
+
+
+ $("#new_user").on("pageshow",function(){
+         
+     $( "#frm_register" ).validate({
+             rules: {
+			name: {
+				required: true
+			},
+                        user: {
+				required: true,email:true
+			},
+			password: {
+				required: true
+			}
+		   },
+            focusInvalid: false,
+            errorLabelContainer: $("#frm_login div.error"),
+            submitHandler: function() {
+                register();         
+            }
+        });
+});
+                    
+

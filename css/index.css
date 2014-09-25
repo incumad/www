@@ -16,100 +16,244 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-}
-
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
-}
-
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
-}
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
+  #demo-page #left-panel.ui-panel {
+            width: 15em;
+        }
+    #demo-page #left-panel.ui-panel-closed {
+        width: 0;
     }
-}
-
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
+    #demo-page .ui-panel-position-left.ui-panel-display-reveal {
+        left: 0;
+    }
+    #demo-page .ui-panel-content-wrap-position-left.ui-panel-content-wrap-open,
+    .ui-panel-dismiss-position-left.ui-panel-dismiss-open {
+        left: 15em;
+        right: -15em;
+    }
+    #demo-page .ui-panel-animate.ui-panel-content-wrap-position-left.ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal {
+        left: 0;
+        right: 0;
+        -webkit-transform: translate3d(15em,0,0);
+        -moz-transform: translate3d(15em,0,0);
+        transform: translate3d(15em,0,0);
+    }
+    /* Combined listview collapsible menu. */
+    /* Unset negative margin bottom on the listviews. */
+    #left-panel .ui-panel-inner > .ui-listview { margin-bottom: 0; }
+    /* Unset top and bottom margin on collapsible set. */
+    #left-panel .ui-collapsible-set { margin: 0; }
+    /* The first collapsible contains the collapsible set. Make it fit exactly in the collapsible content. */
+    #left-panel .ui-panel-inner > .ui-collapsible > .ui-collapsible-content { padding-top: 0; padding-bottom: 0;  border-bottom: none; }
+    /* Remove border top if a collapsible comes after a listview. */
+    #left-panel .ui-panel-inner  > .ui-collapsible > .ui-collapsible-heading .ui-btn,
+    #left-panel .ui-collapsible.ui-first-child .ui-collapsible-heading .ui-btn { border-top: none; }
+    /* Give the first collapsible heading the same padding, i.e. same height, as the list items. */
+    #left-panel .ui-collapsible-heading .ui-btn-inner { padding: .7em 40px .7em 15px; }
+    /* Give the other collapsible headings the same padding and font-size as the list divider. */
+    #left-panel .ui-collapsible-set .ui-collapsible-heading .ui-btn-inner { padding: .5em 40px .5em 15px; font-size: 14px; }
+    /* Styling of the close button in both panels. */
+    #demo-page .ui-panel-inner > .ui-listview .ui-first-child {
+        background: #eee;
+    }
+    /* Reveal menu shadow on top of the list items */
+    #demo-page .ui-panel-display-reveal {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+    #demo-page .ui-panel-content-wrap-position-left {
+        -webkit-box-shadow: -5px 0px 5px rgba(0,0,0,.15);
+        -moz-box-shadow: -5px 0px 5px rgba(0,0,0,.15);
+        box-shadow: -5px 0px 5px rgba(0,0,0,.15);
+    }
+    /* Use the ui-body class of your page theme (ui-body-d in this demo) to set a background image.
+     This class will be added to the content wrapper, while the page itself gets the same background
+     as the panel before opening the panel. */
+    #demo-page .ui-body-d {
+        background-image: url(../../_assets/img/bg-pattern.png);
+        background-repeat: repeat-x;
+        background-position: left bottom;
+    }
+    /* Styling of the page contents */
+    .article p {
+        margin: 0 0 1em;
+        line-height: 1.5;
+    }
+    .article p img {
+        max-width: 100%;
+    }
+    .article p:first-child {
+        text-align: center;
+    }
+    .article small {
+        display: block;
+        font-size: 75%;
+        color: #c0c0c0;
+    }
+    .article p:last-child {
+        text-align: right;
+    }
+    .article a.ui-btn {
+        margin-right: 2em;
+        -webkit-border-radius: .4em;
+        border-radius: .4em;
+    }
+    @media all and (min-width:769px) {
+        .article {
+            max-width: 994px;
+            margin: 0 auto;
+            padding-top: 4em;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+            column-count: 2;
+            -webkit-column-gap: 2em;
+            -moz-column-gap: 2em;
+            column-gap: 2em;
+        }
+        /* Fix for issue with buttons and form elements
+         if CSS columns are used on a page with a panel. */
+        .article a.ui-btn {
+            -webkit-transform: translate3d(0,0,0);
+        }
+    }
  
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+    
+    
+    
+    
+       body {
+            -webkit-font-smoothing: antialiased;
+            font: normal 15px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #232525;
+            padding-top:70px;
+        }
+    
+    #slides {
+        display: none
+    }
+    
+    #slides .slidesjs-navigation {
+        margin-top:3px;
+    }
+    
+    #slides .slidesjs-previous {
+        margin-right: 5px;
+        float: left;
+    }
+    
+    #slides .slidesjs-next {
+        margin-right: 5px;
+        float: left;
+    }
+    
+    .slidesjs-pagination {
+        margin: 6px 0 0;
+        float: right;
+        list-style: none;
+    }
+    
+    .slidesjs-pagination li {
+        float: left;
+        margin: 0 1px;
+    }
+    
+    .slidesjs-pagination li a {
+        display: block;
+        width: 13px;
+        height: 0;
+        padding-top: 13px;
+        background-image: url(img/pagination.png);
+        background-position: 0 0;
+        float: left;
+        overflow: hidden;
+    }
+    
+    .slidesjs-pagination li a.active,
+    .slidesjs-pagination li a:hover.active {
+        background-position: 0 -13px
+    }
+    
+    .slidesjs-pagination li a:hover {
+        background-position: 0 -26px
+    }
+    
+    #slides a:link,
+    #slides a:visited {
+        color: #333
+    }
+    
+    #slides a:hover,
+    #slides a:active {
+        color: #9e2020
+    }
+    
+    .navbar {
+        overflow: hidden
+    }
+    
+    
+    
+     #slides {
+            display: none
+        }
+    
+    .container {
+        margin: 0 auto
+    }
+    
+    /* For tablets & smart phones */
+    @media (max-width: 767px) {
+        body {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .container {
+            width: auto
+        }
+    }
+    
+    /* For smartphones */
+    @media (max-width: 480px) {
+        .container {
+            width: auto
+        }
+    }
+    
+    /* For smaller displays like laptops */
+    @media (min-width: 768px) and (max-width: 979px) {
+        .container {
+            width: 724px
+        }
+    }
+    
+    /* For larger displays */
+    @media (min-width: 1200px) {
+        .container {
+            width: 1170px
+        }
+    }
+    
+    .ios7
+{
+    padding-top: 20px !important;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+    .left-ios7
+{
+    padding-top: 15px !important;
+}
+
+
+div.ui-input-text .error  {
+    border:1px solid red;
+}
+
+div.error {
+    display: none;
+}
+
+
+label.error, label.error {
+    color: red;
+    font-style: italic;
 }

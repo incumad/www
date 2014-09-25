@@ -293,8 +293,8 @@ function loginFB() {
                  function(response) {
                  if(response.status === 'connected') {
                  $.mobile.changePage("#home");
-                 localStorage.setItem("fbToken",response.authResponse.token);
-                 localStorage.setItem("userId",response.authResponse.userID);
+                 //localStorage.setItem("fbToken",response.authResponse.token);
+                 //localStorage.setItem("userId",response.authResponse.userID);
                  getInfoFB();
                  
                  } else {
@@ -317,10 +317,9 @@ function getInfoFB() {
     openFB.api({
                path: '/me',
                success: function(data) {
-               localStorage.setItem("name",data.name);
-               localStorage.setItem("email",data.email);
-               $("#userName").html(data.name);
-               $.mobile.changePage("#home");
+               //var url  = "http://espaciodeco.com/mobile/register";
+               var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=4";
+               $.post(url, { email:data.email ,name:data.name,userFbId:data.id},succesRegister,'json');
                //$("#userPic").html(localStorage.getItem("userId"));
                },
                error: errorHandler});
@@ -354,3 +353,9 @@ function errorHandler(error) {
 
 
 
+function sendDataUserFB(data){
+               
+               localStorage.setItem("name",data.name);
+               localStorage.setItem("email",data.email);
+               localStorage.setItem("fbUserId",data.id);
+}
