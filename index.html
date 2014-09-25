@@ -309,7 +309,6 @@
                       <input type="password" id="passw" name="passw"  placeholder="Password">
                       <input data-inline="true" value="Iniciar" type="button" data-theme="b" id="enviar" onclick="$.mobile.changePage('#home')">
                       <input data-inline="true" value="Registro" type="button" data-theme="e" id="registro">
-
                          
              </form>
               
@@ -345,7 +344,6 @@
                   <li data-role="list-divider">Home</li>
                   <li><a href="#nueva-idea" >Envia Idea</a></li>
                   <li><a href="#ver-ideas" >ver tus Ideas</a></li>
-                  <li><a href="#question" >question test</a></li>
               </ul>
           </div><!-- /panel -->
           <div data-role="footer" data-position="fixed" data-theme="c">
@@ -360,7 +358,7 @@
     
       </div>
       <div data-url="nueva-idea" data-role="page" id="nueva-idea" data-theme="d">
-          <div data-role="header"  data-theme="c" data-position="fixed" data-fullscreen="true">
+          <div data-role="header"  data-theme="c" data-fullscreen="true">
               
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
@@ -376,7 +374,7 @@
               <p style="margin-top:20px;"><img style="display:none;" id="largeImage" src="" width="80" height="80" /></p>
               <input name="firstname" id="titulo" placeholder='Ejemplo de titular: "Necesito ayuda para cocina" o "Nuestro patio"'  type="text"  >
               <textarea cols="40" rows="8" data-mini="true" placeholder="Escribe aquí tu consulta" id="pregunta"></textarea>
-              <input type="button" data-theme="b" id="btnSubmit" value="Manda tu pregunta" onclick="uploadPhoto();"  >
+              <input type="button" data-theme="b" id="btnSubmit" value="Manda tu pregunta" onclick="sendQuestion();"  >
               
           </div><!-- /content -->
           <div data-role="panel" id="left-panel" data-theme="c">
@@ -395,7 +393,7 @@
                         <li><a href="#ver-ideas" data-icon="gear">Mis ideas</a></li>
                     </ul>
                 </div><!-- /navbar -->
-          </div><!-- /footer -->
+            </div><!-- /footer -->
       </div>
       <div data-url="ver-ideas" data-role="page" id="ver-ideas" data-theme="d" style="padding: 0 0 30px 0;">
           <div data-role="header"  data-theme="c" data-fullscreen="true">
@@ -444,41 +442,28 @@
                </ul>
           </div>
         </div>
-        <div data-role="content" id="contentQuestion" style="padding: 3px;" >
-            <p>Lo preguntaste el 17/09/2014</p>
-            <h1>Cómo puedo mejorar el salon</h1>
-            <p>Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total Necesito cambiarlo de arriba abajo y abajo arriba total total xv</p>
-            <img src="img/livingroom-ChicDeco.jpg" alt="">
-            <br/>
-            <strong>Comentarios</strong>
-            <hr/>
-            <div id="comentarios">
-            <div>
-                <div style="float: left;width: 15%;"><img src="img/users/default.jpg"/></div>
-                <div style="float: left;width: 85%;"><strong>Javi</strong><p>Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos  Pues haz que sea la mas bonita de todas ni mas ni menos</p></div>
+        <div data-role="content" style="padding: 3px;" >
+            <div data-role="content" id="contentQuestion">
+                
             </div>
-            <hr style="clear: both;"/>
-            <div>
-                <div style="float: left;width: 15%;"><img src="img/users/default.jpg"/></div>
-                <div style="float: left;width: 85%;"><strong>María</strong><p>Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos Pues haz que sea la mas bonita de todas ni mas ni menos  Pues haz que sea la mas bonita de todas ni mas ni menos</p>
-                    <a href="#popupParis" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="img/livingroom-ChicDeco.jpg" alt="Paris, France" style="width:25%"></a>
-                    <div data-role="popup" id="popupParis" data-overlay-theme="b" data-theme="b" data-corners="false">
-                        <img class="popphoto" src="img/livingroom-ChicDeco.jpg" style="max-height:512px;" alt="Paris, France">
-                    </div>
-            </div>
-            </div>
-            </div>
-            
             <div data-role="content">
               <h2>Algo que comentar</h2>
-              <input  value="Saca una foto" type="button" data-theme="b" onclick="capturePhoto();"  >
-              <input  value="O usa una que ya tenías" type="button" data-theme="e" onclick="getPhoto(pictureSource.PHOTOLIBRARY);"  >
-              <p style="margin-top:20px;"><img style="display:none;" id="largeImage" src="" width="80" height="80" /></p>
+              <input  value="Saca una foto" type="button" data-theme="b" onclick="capturePhotoComment();"  >
+              <input  value="O usa una que ya tenías" type="button" data-theme="e" onclick="getPhotoComment(pictureSource.PHOTOLIBRARY);"  >
+              <p style="margin-top:20px;"><img style="display:none;" id="largeImageComment" src="" width="80" height="80" /></p>
               <textarea cols="40" rows="8" data-mini="true" placeholder="Escribe aquí tu comentario" id="comentario"></textarea>
-              <input type="button" data-theme="b" id="btnSubmit" value="Manda tu comentario" onclick="uploadPhoto();"  >
+              <input type="button" data-theme="b" id="btnSubmit" value="Manda tu comentario" onclick="sendComment();"  >
             </div><!-- /content -->
             
          </div><!-- /content -->
+         <div data-role="panel" id="left-panel" data-theme="c">
+              <ul data-role="listview" data-theme="d">
+                  <li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
+                  <li data-role="list-divider">Home</li>
+                  <li><a href="#nueva-idea" >Envia Idea</a></li>
+                  <li><a href="#ver-ideas" >ver tus Ideas</a></li>
+              </ul>
+          </div><!-- /panel -->
           
          <div data-role="footer" data-theme="c">
                 <div data-role="navbar">
@@ -510,11 +495,16 @@
                       });
                       
         $("#ver-ideas").on("pageshow",function(){
-                          getQuestionList();
+                    $('#listQuestions').html('');
+                    $.mobile.loading("show", {textVisible: true,text:'Loading'});
+                    getQuestionList();
                   });
                   
         $("#question").on("pageshow",function(){
-                getQuestionInfo(idQuestionActive);
+                    $('#contentQuestion').html('');
+                    $.mobile.loading("show", {textVisible: true,text:'Loading'});
+                    getQuestionInfo(idQuestionActive);
+                
         });             
     </script>
 
