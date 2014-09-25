@@ -3,7 +3,7 @@ function basicLogin(){
    var password = $("#password").val();
    var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=3";
    //var url  = "http://espaciodeco.com/mobile/login";
-   $.mobile.loading( 'show');
+   $.mobile.loading( 'show', {textVisible: true,text:'Loading'});
    $.post(url, { email:email ,password:password},succesLogin,'json');
    return false;
 }
