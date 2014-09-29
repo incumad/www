@@ -52,6 +52,7 @@ function onPhotoURISuccessComment(imageURI) {
   // The inline CSS rules are used to resize the image
   //
   largeImage.src = imageURI;
+  
 }
 
 // A button will call this function
@@ -94,6 +95,7 @@ function sendQuestion() {
 
     var ft = new FileTransfer();
     ft.upload(imageURI, encodeURI("http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=2"), questionCreatioSuccess, fail, options);
+    ga('send', 'event', 'contenido', 'add', 'pregunta');
 }
 
 
@@ -118,6 +120,7 @@ function sendComment() {
 
     var ft = new FileTransfer();
     ft.upload(imageURI, encodeURI("http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=2"), questionCreatioSuccess, fail, options);
+    ga('send', 'event', 'contenido', 'add', 'comentario');
 }
 
 
@@ -184,7 +187,7 @@ function successQuestionInfo(data){
     var 
         sQuestion = '<p>Lo preguntaste el '+ data.date +'</p><h1>'+ data.title +'</h1><p>'+ data.content +'</p><img src="'+ data.img +'" alt=""><br/><strong>Comentarios</strong><hr/><div id="comentarios">',
         
-        sAnswer = '<div><div style="float: left;width: 15%;"><img src="img/users/default.jpg"/></div><div style="float: left;width: 85%;"><strong>%user%</strong><p>%content%</p></div>';
+        sAnswer = '<div><div style="float: left;width: 15%;"><a class="out" href="#" rel="external" data-ajax="false" %userUrl%><img style="max-width: 95%;" src="img/users/default.jpg"/></a></div><div style="float: left;width: 85%;"><strong>%user%</strong><p>%content%</p></div>';
 
         sAnswerImg = '<a href="#%id%" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="%img%" style="width:25%"></a>';
         sAnswerImg += '<div data-role="popup" id="%id%" data-overlay-theme="b" data-theme="b" data-corners="false">';
@@ -200,6 +203,12 @@ function successQuestionInfo(data){
                 sItemAnswer = sItemAnswer.replace("%content%", answerInfo.content);
                 if (answerInfo.hasOwnProperty('userImg')) {
                     sItemAnswer = sItemAnswer.replace("img/users/default.jpg", answerInfo.userImg);
+                }
+                
+                if (answerInfo.hasOwnProperty('userUrl')) {
+                    sItemAnswer = sItemAnswer.replace("%userUrl%", "onclick=\"window.open('"+answerInfo.userUrl+"?utm_source=edapp', '_system', 'location=no');exit;\"");
+                } else {
+                    sItemAnswer = sItemAnswer.replace("%userUrl%", '');
                 }
                 
                 sQuestion += sItemAnswer;  

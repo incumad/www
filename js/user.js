@@ -28,6 +28,7 @@ function succesRegister(data){
          //localStorage.setItem("email",data.email);
          localStorage.setItem("user_id",data.id);
          $.mobile.changePage("#home");
+         ga('send', 'event', 'altas', 'add', 'user');
      }else{
          $( '#login_message' ).html("Error alta intetelo mas tarde");
          $( '#login_message' ).popup( 'open' );
@@ -45,6 +46,7 @@ function succesLogin(data){
          //localStorage.setItem("email",data.email);
          localStorage.setItem("user_id",data.id);
          $.mobile.changePage("#home");
+         ga('send', 'event', 'producto', 'login', 'app');
      }else{
           $( '#login_message' ).html("Error login intentelo mas tarde");
           $( '#login_message' ).popup( 'open' );

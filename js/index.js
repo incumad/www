@@ -14,6 +14,8 @@ document.addEventListener("deviceready",onDeviceReady,false);
 // device APIs are available
 function onDeviceReady() {
    
+   gaCreate();
+   
    document.addEventListener("online", onOnline, false);
    document.addEventListener("offline", onOffline, false);
 
@@ -95,6 +97,20 @@ var app = {
     }
 };
 
+function gaCreate() {
+        var uuid = '';
+        if ((typeof window.device !== 'undefined') &&  (typeof window.device.uuid !== 'undefined')) {
+            uuid = window.device.uuid;
+        }
+        
+        ga('create', 'UA-24898203-4', {
+        'storage': 'none',
+        'clientId':uuid
+        });
+        ga('set', 'checkProtocolTask', null);
+        ga('send', 'pageview', {'page': '/access-edapp-1.0'});
+        
+}
 
 function loadHomeBanner(){
     var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=5";
@@ -173,28 +189,29 @@ $("#new_user").on("pageshow",function(){
                register();         
            }
        });
+       ga('send', 'pageview', {'page': '/registro-usuario'});
 });
 
 $("#home").on("pageshow",function(){
-            // $.mobile.loading("show", {textVisible: true,text:'Loading'});
-            // setTimeout(function(){$.mobile.loading("hide");},2000);
               var mySwiper = new Swiper('.swiper-container',{
                     pagination: '.pagination',
                     paginationClickable: true
                   });
+              ga('send', 'pageview', {'page': '/home'});                      
               });
 
 $("#ver-ideas").on("pageshow",function(){
             $('#listQuestions').html('');
             $.mobile.loading("show", {textVisible: true,text:'Loading'});
             getQuestionList();
+            ga('send', 'pageview', {'page': '/mis-preguntas'});
           });
 
 $("#question").on("pageshow",function(){
             $('#contentQuestion').html('');
             $.mobile.loading("show", {textVisible: true,text:'Loading'});
             getQuestionInfo(idQuestionActive);
-
+            ga('send', 'pageview', {'page': '/hilo-pregunta'});
 });   
 
 
