@@ -7,54 +7,22 @@
     <title>Haz tu consulta en ED</title>
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
     <link rel="stylesheet" href="css/index.css" />
-
-    <style>
-      	label.error {
-		color: red;
-		font-size: 16px;
-		font-weight: normal;
-		line-height: 1.4;
-		margin-top: 0.5em;
-		width: 100%;
-		float: none;
-	}
-	@media screen and (orientation: portrait) {
-		label.error {
-			margin-left: 0;
-			display: block;
-		}
-	}
-	@media screen and (orientation: landscape) {
-		label.error {
-			display: inline-block;
-			margin-left: 22%;
-		}
-	}
-	em {
-		color: red;
-		font-weight: bold;
-		padding-right: .25em;
-	}
-        div.error {
-    display: none;
-}
-  </style>
-  </head>
+    <link rel="stylesheet" href="css/idangerous.swiper.css">
+</head>
   <body>
       <div data-role="page" id="inicio" style ="background: transparent url(img/livingroom-ChicDeco.jpg) no-repeat  center center;"  >
           
-          <div data-role="header">
-              <h1>Espacio<strong>Deco</strong></h1>
-              
-          </div>
+        
           
-          <div data-role="content" >
+          <div data-role="content"  style="vertical-align: middle;">
               
               <form id="frm_login"   >
-                  <input  value="facebook" type="button" data-theme="b" onclick="loginFB()"  >
-                      <p style="margin-top:20px;"></p>
+                      <br/>
+                      <p><img border="0" src="img/logo-espaciodeco.png" alt="Logo" style="float:left;display:inline;max-width: 50%;"/></p>
+                      <br/><br/><br/>
+                      <input  value="facebook" type="button" data-theme="b" onclick="loginFB()"  >
                       <input name="user" id="user" placeholder="Usuario"  type="email" >
                       <input type="password" id="password" name="password"  placeholder="Password">
                        <div class="ui-body ui-body-e ui-corner-all error" ></div>
@@ -96,19 +64,18 @@
       </div>
       
       <!-- HOME -->
-      <div data-url="home" data-role="page" id="home"   >
-          <div data-role="header"  data-theme="c" data-fulscreen="true" >
-             <div data-role="navbar" data-iconpos="left">
+      <div data-url="home" data-role="page" id="home" data-position="fixe"  >
+          <div data-role="header"  data-theme="c" >
+             <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
-                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/>Home</a></li>
+                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo_short.png" alt="Logo" style="float:left;display:inline;max-width: 50%;"/>Home</a></li>
                 </ul>
             </div><!-- /navbar -->
           </div><!-- /header -->
          <div data-role="content" style="padding: 3px;" >
-             <div class="container">
-                 <div id="slides">
-
-                  </div>
+             <div class="swiper-container">
+                <div class="swiper-wrapper"></div>
+                <div class="pagination"></div>
              </div>
           </div><!-- /content -->
           <div data-role="panel" id="left-panel" data-theme="c">
@@ -136,7 +103,7 @@
           <div data-role="header"  data-theme="c" >
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
-                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/>Preguntar</a></li>
+                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo_short.png" alt="Logo" style="float:left;display:inline;max-width: 50%;"/>Preguntar</a></li>
                 </ul>
             </div><!-- /navbar -->
           </div><!-- /header -->
@@ -174,7 +141,7 @@
               
              <div data-role="navbar" data-iconpos="left" id='nav-header' >
                  <ul>
-                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/>Mis preguntas</a></li>
+                    <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo_short.png" alt="Logo, Facebook" style="float:left;display:inline;max-width: 50%;"/>Mis preguntas</a></li>
                 </ul>
             </div><!-- /navbar -->
               <!--h1>Home</h1>
@@ -212,7 +179,7 @@
         <div data-role="header"  data-theme="c" data-fullscreen="true">
            <div data-role="navbar" data-iconpos="left" id='nav-header' >
                <ul>
-                  <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo-espaciodeco.png" alt="Logo, Facebook" style="max-width: 75%;float:left;display:inline;max-width: 50%;"/>Tu pregunta</a></li>
+                  <li><a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"><img border="0" src="img/logo_short.png" alt="Logo" style="max-width: 75%;float:left;display:inline;max-width: 50%;"/>Tu pregunta</a></li>
                </ul>
           </div>
         </div>
@@ -235,7 +202,7 @@
                   <li data-icon="delete"><a href="#" data-rel="close">Close</a></li>
                   <li><a href="#home" >Home</a></li>
                   <li><a href="#nueva-idea" >Preguntar</a></li>
-                  <li><a href="#ver-ideas" >Mis preguntas</li>
+                  <li><a href="#ver-ideas" >Mis preguntas</a></li>
                   <li><a rel="external" data-ajax="false" class="out" href="#">EspacioDeco</a></li>
               </ul>
           </div><!-- /panel -->
@@ -248,13 +215,23 @@
                 </div><!-- /navbar -->
           </div><!-- /footer -->
       </div>
+      
+      <div data-role="dialog" id="messagebox" data-close-btn="none">
+            <div data-role="header">
+                <h1></h1>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <span id="phMessage"></span>
+            </div>
+      </div>
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/openfb.js"></script>
    
     <script src="js/jquery.mobile-1.3.1.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
     
-    <script src="js/jquery.slides.min.js"></script>
+    <script src="js/idangerous.swiper.js"></script>
     <script src="js/index.js"></script>
     <script src="js/db.js"></script>
     <script src="js/question.js"></script>

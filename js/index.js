@@ -18,7 +18,10 @@ function onDeviceReady() {
    document.addEventListener("offline", onOffline, false);
 
    localStorage.setItem("last_login",strDate);
-   loadHomeBanner();  
+   if ($('.swiper-wrapper').html()===''){
+       loadHomeBanner();  
+   }
+   
    
    if (parseFloat(window.device.version) >= 7.0) {
      $('[data-role="header"]').addClass("ios7");
@@ -95,15 +98,20 @@ var app = {
 
 function loadHomeBanner(){
     var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=5";
-        $.getJSON( url, {check:'5'})
+      
+    
+       $.getJSON( url, {check:'5'})
             .done(function(data) {
                //alert(data.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)
                 //alert(data.validation);  
-           
+                //$('.swiper-wrapper').html('');
                 $.each( data, function( key, value ) {
                 //alert( key + ": " + value.img );
-                     $('#slides').append('<img src="'+value.img+'" alt="">');
+                     $('.swiper-wrapper').append('<div class="swiper-slide"><img src="'+value.img+'" alt="" onclick="goUrl(\''+value.url+'\')"></div>');
                 });
+                 //alert($('.swiper-wrapper').html());
+                
+                
               
             });
     return false;
@@ -119,7 +127,7 @@ function getDate(){
 
 
 $("#inicio").on("pageshow",function(){
-
+    $('#inicio[data-role="content"]').css('margin-top',($(window).height() - $('[data-role=header]').height() - $('[data-role=footer]').height() - $('#index-content').outerHeight())/2);
     $( "#frm_login" ).validate({
             rules: {
                        user: {
@@ -168,12 +176,12 @@ $("#new_user").on("pageshow",function(){
 });
 
 $("#home").on("pageshow",function(){
-              $('#slides').slidesjs({
-                                    width: 940,
-                                    height: 1280,
-                                    navigation: false
-                                    });
-
+            // $.mobile.loading("show", {textVisible: true,text:'Loading'});
+            // setTimeout(function(){$.mobile.loading("hide");},2000);
+              var mySwiper = new Swiper('.swiper-container',{
+                    pagination: '.pagination',
+                    paginationClickable: true
+                  });
               });
 
 $("#ver-ideas").on("pageshow",function(){
@@ -194,11 +202,19 @@ $("#question").on("pageshow",function(){
     
     
 function onOnline() {
-   alert("Ya tienes conexion a internet ");
+   $('#messagebox').dialog('close');
+   if ($('.swiper-wrapper').html()===''){
+       loadHomeBanner();  
+   }
 }
  
 function onOffline() {
-   alert("No tienes conexion a Internet ");
+    $("#phMessage").html('No hay conexion internet intentelo mas tarde.');
+    $.mobile.changePage('#messagebox', 'pop', false, true);
+}
+
+function goUrl(url){
+    window.open(url+'?utm_source=edapp', '_system', 'location=no');exit;
 }
                     
 
