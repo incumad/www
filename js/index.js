@@ -42,6 +42,8 @@ function onDeviceReady() {
     var user_id = localStorage.getItem("user_id");
     if (user_id!==null && user_id!==0){
         $.mobile.changePage("#home");
+    }else{
+          $.mobile.changePage("#inicio"); 
     }
 
     $.support.cors = true;
