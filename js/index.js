@@ -21,7 +21,7 @@ function onDeviceReady() {
 
    localStorage.setItem("last_login",strDate);
    if ($('.swiper-wrapper').html()===''){
-       loadHomeBanner();  
+      // loadHomeBanner();  
    }
    
    
@@ -114,26 +114,23 @@ function gaCreate() {
 
 function loadHomeBanner(){
     var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=5";
-      
+    $.post(url, { init:0 ,limit:10},succesHomeBanner,'json');
     
-       $.getJSON( url, {check:'5'})
-            .done(function(data) {
-               //alert(data.mensaje + "\nGenerado en: " + respuestaServer.hora + "\n" +respuestaServer.generador)
-                //alert(data.validation);  
-                //$('.swiper-wrapper').html('');
-                $.each( data, function( key, value ) {
-                //alert( key + ": " + value.img );
-                     $('.swiper-wrapper').append('<div class="swiper-slide"><img src="'+value.img+'" alt="" onclick="goUrl(\''+value.url+'\')"></div>');
-                });
-                 //alert($('.swiper-wrapper').html());
-                
-                
-              
-            });
     return false;
 }
 
-
+function succesHomeBanner(data){
+    var html ='';  
+    $.each( data, function( key, value ) {
+                //alert( key + ": " + value.img );
+                     html+='<div class="swiper-slide"><img src="'+value.img+'" alt="" onclick="goUrl(\''+value.url+'\')"></div>';
+   });
+   $('.swiper-wrapper').html(html);
+     var mySwiper = new Swiper('.swiper-container',{
+                    pagination: '.pagination',
+                    paginationClickable: true
+                  });
+}
 
 function getDate(){
    
@@ -192,13 +189,16 @@ $("#new_user").on("pageshow",function(){
        ga('send', 'pageview', {'page': '/registro-usuario'});
 });
 
-$("#home").on("pageshow",function(){
-              var mySwiper = new Swiper('.swiper-container',{
-                    pagination: '.pagination',
-                    paginationClickable: true
-                  });
-              ga('send', 'pageview', {'page': '/home'});                      
-              });
+
+$("#home").on("pageshow",function(){  
+              if ($('.swiper-wrapper').html()===''){
+                $.mobile.loading("show", {textVisible: true,text:'Loading'});
+                loadHomeBanner(); 
+                setTimeout(function(){$.mobile.loading("hide");},2000);
+              }  
+                    ga('send', 'pageview', {'page': '/home'});  
+          });
+
 
 $("#ver-ideas").on("pageshow",function(){
             $('#listQuestions').html('');
@@ -211,8 +211,17 @@ $("#question").on("pageshow",function(){
             $('#contentQuestion').html('');
             $.mobile.loading("show", {textVisible: true,text:'Loading'});
             getQuestionInfo(idQuestionActive);
+
             ga('send', 'pageview', {'page': '/hilo-pregunta'});
 });   
+
+
+$("#ploading").on("pageshow",function(){
+             $.mobile.loading("show", {textVisible: true,text:'Loading'});
+            // setTimeout(function(){$.mobile.loading("hide");},2000);
+            
+              });
+
 
 
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="jqmobile/jquery.mobile-1.3.2.min.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link rel="stylesheet" href="css/idangerous.swiper.css">
+
     <script>
         var uuid = '123456789';
     (function (i, s, o, g, r, a, m) {
@@ -19,12 +20,44 @@
         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'js/analytics.js', 'ga');
     </script>    
+
+    <style>
+        .load_page{
+            backface-visibility: hidden;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .load_page img{width: 100%; height: 100%}
+        
+        .lod_page_wraper{
+            position: relative;
+            transform: translate3d(0px, 0px, 0px);
+            transition-duration: 0s;
+            transition-property: transform, left, top;
+            transition-timing-function: ease;
+            width: 100%
+        }
+    </style>
+
 </head>
   <body>
+      <div id="ploading" data-role="page" style="background: none repeat scroll 0 0 #f7efd9;" >
+          <div data-role="content" >
+       
+                     
+            <p><img border="0" src="img/logo-espaciodeco.png" alt="Logo" /></p>
+            <div class="load_page">
+                <div class="load_page_wrapper"><img border="0" src="img/bg_banner.jpg"  /></div>
+             
+             </div>
+              
+                     
+          </div>
+      </div>
       <div data-role="page" id="inicio" style ="background: transparent url(img/livingroom-ChicDeco.jpg) no-repeat  center center;"  >
-          
-        
-          
           <div data-role="content"  style="vertical-align: middle;">
               
               <form id="frm_login"   >
@@ -234,6 +267,7 @@
                 <span id="phMessage"></span>
             </div>
       </div>
+   
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="js/openfb.js"></script>
    
