@@ -43,7 +43,7 @@ function onDeviceReady() {
     if (user_id!==null && user_id!==0){
         $.mobile.changePage("#home");
     }else{
-          $.mobile.changePage("#inicio"); 
+        $.mobile.changePage("#inicio"); 
     }
 
     $.support.cors = true;
@@ -130,7 +130,8 @@ function succesHomeBanner(data){
    $('.swiper-wrapper').html(html);
      var mySwiper = new Swiper('.swiper-container',{
                     pagination: '.pagination',
-                    paginationClickable: true
+                    paginationClickable: true,
+                    calculateHeight:true
                   });
 }
 
