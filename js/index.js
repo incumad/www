@@ -1,6 +1,7 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
 var d = new Date();
+var lastLogin = '';
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
 
 // Wait for device API libraries to load
@@ -19,6 +20,11 @@ function onDeviceReady() {
    document.addEventListener("online", onOnline, false);
    document.addEventListener("offline", onOffline, false);
 
+   lastLogin = localStorage.getItem("last_login");
+   if (lastLogin === null) {
+        lastLogin = strDate;
+   }
+   
    localStorage.setItem("last_login",strDate);
    if ($('.swiper-wrapper').html()===''){
       // loadHomeBanner();  

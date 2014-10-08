@@ -153,7 +153,7 @@ function getQuestionList() {
     //ws = 'http://www.espaciodeco.com/mobile/comentarios/list',
     ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=21', // TODO Comentar
     userId = localStorage.getItem("user_id"),
-    date = localStorage.getItem("last_login");
+    date = lastLogin;
     
     $.post( ws, { id: userId, date: date }, successQuestionList , "json");
 }
@@ -163,7 +163,7 @@ function getQuestionList() {
 //
 function successQuestionList(data) {
     $.each(data, function(position, info){
-        $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#"><img src="' + info.img +  '" /><h2>' + info.title +  '</h2><p>' + info.date +  '</p></a>' + ((info.hasOwnProperty('newAnswersCount'))?'<span class="ui-li-count">' + info.newAnswersCount + '</span>':'') + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
+        $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#"><div style="width:80px;height:80px;overflow:hidden; float:left;margin-right:10px;"><img style="max-height: 120px;max-width: 120px;" src="' + info.img +  '" /></div><h2'+ ((info.hasOwnProperty('newAnswersCount'))?' style="color: green;"':'')+'>' + info.title +  '</h2><p>' + info.date + ((info.hasOwnProperty('newAnswersCount'))?' <strong style="color: green;">Comentarios nuevos: ' + info.newAnswersCount + ' </strong>':'')+'</p></a>' + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
     });
     $("#listQuestions").listview('refresh');
     $.mobile.loading("hide");
@@ -178,7 +178,7 @@ function getQuestionInfo(idQuestion) {
     //ws = 'http://www.espaciodeco.com/mobile/comentarios/thread',
     ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=22', // TODO Comentar
     userId = localStorage.getItem("user_id"),
-    date = localStorage.getItem("last_login");
+    date = lastLogin;
     $.post( ws, { id: userId, questionId: idQuestion, date: date }, successQuestionInfo , "json");
 }
 
@@ -187,7 +187,7 @@ function successQuestionInfo(data){
     var 
         sQuestion = '<p>Lo preguntaste el '+ data.date +'</p><h1>'+ data.title +'</h1><p>'+ data.content +'</p><img src="'+ data.img +'" alt=""><br/><strong>Comentarios</strong><hr/><div id="comentarios">',
         
-        sAnswer = '<div><div style="float: left;width: 15%;"><a class="out" href="#" rel="external" data-ajax="false" %userUrl%><img style="max-width: 95%;" src="img/users/default.jpg"/></a></div><div style="float: left;width: 85%;"><strong>%user%</strong><p>%content%</p></div>';
+        sAnswer = '<div><div style="float: left;width: 15%;"><a class="out" href="#" rel="external" data-ajax="false" %userUrl%><img style="max-width: 95%;" src="img/users/default.jpg"/></a></div><div style="float: left;width: 85%;"><strong %new%>%user%</strong><p>%content%</p></div>';
 
         sAnswerImg = '<a href="#%id%" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="%img%" style="width:25%"></a>';
         sAnswerImg += '<div data-role="popup" id="%id%" data-overlay-theme="b" data-theme="b" data-corners="false">';
@@ -203,6 +203,12 @@ function successQuestionInfo(data){
                 sItemAnswer = sItemAnswer.replace("%content%", answerInfo.content);
                 if (answerInfo.hasOwnProperty('userImg')) {
                     sItemAnswer = sItemAnswer.replace("img/users/default.jpg", answerInfo.userImg);
+                }
+                
+                if (answerInfo.hasOwnProperty('new')) {
+                    sItemAnswer = sItemAnswer.replace("%new%", 'style="color:green;"');
+                } else {
+                    sItemAnswer = sItemAnswer.replace("%new%", '');
                 }
                 
                 if (answerInfo.hasOwnProperty('userUrl')) {
