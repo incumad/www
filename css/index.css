@@ -70,7 +70,8 @@ label.error, label.error {
 
 
 
-.swiper-container img{  max-width: 100%;}
+.swiper-container img{    background-size: cover;
+  background-position: center center; background:no-repeat fixed;}
       
 
       

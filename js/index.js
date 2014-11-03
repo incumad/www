@@ -126,13 +126,14 @@ function gaCreate() {
 }
 
 function loadHomeBanner(){
-    var url  = "http://venezuelaentipscom.ipage.com/test/mobile.php?check=5";
+    var url  = "http://www.espaciodeco.com/mobile/projects/list";
     $.post(url, { init:0 ,limit:10},succesHomeBanner,'json');
     
     return false;
 }
 
-function succesHomeBanner(data){
+function succesHomeBanner(response){
+    var data = response.data;
     var html ='';  
     $.each( data, function( key, value ) {
                 //alert( key + ": " + value.img );
@@ -184,18 +185,18 @@ $("#new_user").on("pageshow",function(){
 
     $( "#frm_register" ).validate({
             rules: {
-                       name: {
+                       new_name: {
                                required: true
                        },
-                       user: {
+                       email_user: {
                                required: true,email:true
                        },
-                       password: {
+                       new_password: {
                                required: true
                        }
                   },
            focusInvalid: false,
-           errorLabelContainer: $("#frm_login div.error"),
+           errorLabelContainer: $("#frm_register div.error"),
            submitHandler: function() {
                register();         
            }
@@ -255,4 +256,6 @@ function onOffline() {
 
 function goUrl(url){
     window.open(url+'?utm_source=edapp', '_system', 'location=no');exit;
+
 }
+

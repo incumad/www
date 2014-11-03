@@ -86,14 +86,14 @@
           <div data-role="content" >
               
               <form id="frm_register"   >
-                        <input name="user" id="user" placeholder="email"  type="email"  >
-                        <input name="name" id="name" placeholder="Nombre"  type="text"  >
-                        <input type="password" id="passw" name="passw"  placeholder="Password">
-                        <input type="password" id="passw" name="passw"  placeholder="Repetir Password">
+                        <input name="email_user" id="email_user" placeholder="email"  type="email"  >
+                        <input name="new_name" id="new_name" placeholder="Nombre"  type="text"  >
+                        <input type="password" id="new_password" name="new_password"  placeholder="Password">
+                        <input type="password" id="password_new" name="password_new"  placeholder="Repetir Password">
                          <div class="ui-body ui-body-e ui-corner-all error" ></div>
-                        <input data-inline="true" value="Enviar datos" type="button" data-theme="b" id="nuevo">
+                        <input data-inline="true" value="Enviar datos" type="submit" data-theme="b" id="nuevo">
              </form>
-              
+             <div id="register_message" data-transition="slideup" class="ui-content" data-theme="d" style="max-width:350px;" data-role="popup"></div> 
           </div>
            <div data-role="footer"  data-theme="c" data-position="fixed">
                 <div data-role="navbar">
@@ -275,6 +275,7 @@
     <script src="js/jquery.validate.min.js"></script>
     
     <script src="js/idangerous.swiper.js"></script>
+    <script src="js/md5.js"></script>
     <script src="js/index.js"></script>
     <script src="js/db.js"></script>
     <script src="js/question.js"></script>
