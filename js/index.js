@@ -5,17 +5,22 @@ var lastLogin = '';
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
 
 // Wait for device API libraries to load
-//
 
 document.addEventListener("deviceready",onDeviceReady,false);
 
+//TODO Comentar
 //$( document ).ready(onDeviceReady);
+
 
 
 // device APIs are available
 function onDeviceReady() {
    
    gaCreate();
+   
+   // TODO QUITAR
+   //localStorage.setItem("user_id",15519);
+
    
    document.addEventListener("online", onOnline, false);
    document.addEventListener("offline", onOffline, false);
@@ -106,7 +111,7 @@ var app = {
 };
 
 function gaCreate() {
-        var uuid = '';
+        var uuid = localStorage.getItem("user_id");
         if ((typeof window.device !== 'undefined') &&  (typeof window.device.uuid !== 'undefined')) {
             uuid = window.device.uuid;
         }
@@ -251,5 +256,3 @@ function onOffline() {
 function goUrl(url){
     window.open(url+'?utm_source=edapp', '_system', 'location=no');exit;
 }
-                    
-

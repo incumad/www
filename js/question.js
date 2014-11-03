@@ -78,23 +78,35 @@ function sendQuestion() {
 
     //selected photo URI is in the src attribute (we set this on getPhoto)
     var imageURI = document.getElementById('largeImage').getAttribute("src");
-    //set upload options
-    var options = new FileUploadOptions();
     
-    $.mobile.loading("show", {textVisible: true,text:'Enviando tu pregunta'});
-    
-    options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-    options.mimeType = "image/jpeg";
-    // this will get value of text field
-    options.params = {
-        title: document.getElementById("titulo").value,
-        content: document.getElementById("pregunta").value
-        // mandar id usuario
-    };
+    if (imageURI.length > 0) {
+        //set upload options
+        var options = new FileUploadOptions();
 
-    var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=2"), questionCreatioSuccess, fail, options);
+        $.mobile.loading("show", {textVisible: true,text:'Enviando tu pregunta'});
+
+        options.fileKey = "file";
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.mimeType = "image/jpeg";
+        // this will get value of text field
+        options.params = {
+            id: localStorage.getItem("user_id"),
+            title: document.getElementById("titulo").value,
+            content: document.getElementById("pregunta").value
+            // mandar id usuario
+        };
+
+        var ft = new FileTransfer();
+        ft.upload(imageURI, encodeURI("http://www.espaciodeco.com/mobile/comentarios/add"), questionCreatioSuccess, fail, options);
+    } else {
+        var ws = "http://www.espaciodeco.com/mobile/comentarios/add";
+        $.post( ws, {            
+            id: localStorage.getItem("user_id"),
+            title: document.getElementById("titulo").value,
+            content: document.getElementById("pregunta").value
+        }, questionCreatioSuccess , "json");
+    }
+    
     ga('send', 'event', 'contenido', 'add', 'pregunta');
 }
 
@@ -104,22 +116,34 @@ function sendComment() {
     //selected photo URI is in the src attribute (we set this on getPhoto)
     var imageURI = document.getElementById('largeImageComment').getAttribute("src");
     
-    //set upload options
-    var options = new FileUploadOptions();
-    
-    $.mobile.loading("show", {textVisible: true,text:'Enviando tu comentario'});
-    
-    options.fileKey = "file";
-    options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-    options.mimeType = "image/jpeg";
-    // this will get value of text field
-    options.params = {
-        content: document.getElementById("comentario").value
-        // mandar id usuario
-    };
+    if (imageURI.length > 0) { 
+        //set upload options
+        var options = new FileUploadOptions();
 
-    var ft = new FileTransfer();
-    ft.upload(imageURI, encodeURI("http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=2"), questionCreatioSuccess, fail, options);
+        $.mobile.loading("show", {textVisible: true,text:'Enviando tu comentario'});
+
+        options.fileKey = "file";
+        options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+        options.mimeType = "image/jpeg";
+        // this will get value of text field
+        options.params = {
+            id: localStorage.getItem("user_id"),
+            content: document.getElementById("comentario").value,
+            question_id: idQuestionActive        
+            // mandar id usuario
+        };
+
+        var ft = new FileTransfer();
+        ft.upload(imageURI, encodeURI("http://www.espaciodeco.com/mobile/comentarios/add"), questionCreatioSuccess, fail, options);
+    } else {
+        var ws = "http://www.espaciodeco.com/mobile/comentarios/add";
+        $.post( ws, {            
+            id: localStorage.getItem("user_id"),
+            content: document.getElementById("comentario").value,
+            question_id: idQuestionActive
+        }, questionCreatioSuccess , "json");
+    }
+    
     ga('send', 'event', 'contenido', 'add', 'comentario');
 }
 
@@ -127,20 +151,18 @@ function sendComment() {
 // Called if something bad happens.
 //
 function onFail(message) {
-  console.log('Failed because: ' + message);
+  alert("Error inesperado: Code = " + message);
 }
 
 
 function fail(error) {
-    alert("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
+    alert("Error inesperado: Code = " + error.code + error.source + error.target);
 }
     
 function questionCreatioSuccess(r) {
-    //$.mobile.loading("hide");
     $.mobile.loading("show", {textVisible: true,text:'Gracias por colaborar',textonly:true});
     setTimeout(function(){$.mobile.loading("hide");},2000);
+
 }
 
 
@@ -150,8 +172,8 @@ function getQuestionList() {
     //array(array(title, img, answersCount, newAnswersCount)
     //mobile/comentarios/list
     var 
-    //ws = 'http://www.espaciodeco.com/mobile/comentarios/list',
-    ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=21', // TODO Comentar
+    ws = 'http://www.espaciodeco.com/mobile/comentarios/list',
+    //ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=21', // TODO Comentar
     userId = localStorage.getItem("user_id"),
     date = lastLogin;
     
@@ -162,11 +184,15 @@ function getQuestionList() {
 // Print in list view all parent questions 
 //
 function successQuestionList(data) {
-    $.each(data, function(position, info){
-        $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#"><div style="width:80px;height:80px;overflow:hidden; float:left;margin-right:10px;"><img style="max-height: 120px;max-width: 120px;" src="' + info.img +  '" /></div><h2'+ ((info.hasOwnProperty('newAnswersCount'))?' style="color: green;"':'')+'>' + info.title +  '</h2><p>' + info.date + ((info.hasOwnProperty('newAnswersCount'))?' <strong style="color: green;">Comentarios nuevos: ' + info.newAnswersCount + ' </strong>':'')+'</p></a>' + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
-    });
-    $("#listQuestions").listview('refresh');
-    $.mobile.loading("hide");
+    if (data.status.code == 1) {
+        $.each(data.data, function(position, info){
+            $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#"><div style="width:80px;height:80px;overflow:hidden; float:left;margin-right:10px;"><img style="max-height: 120px;max-width: 120px;" src="' + info.img +  '" /></div><h2'+ ((info.hasOwnProperty('newAnswersCount'))?' style="color: green;"':'')+'>' + info.title +  '</h2><p>' + info.date + ((info.hasOwnProperty('newAnswersCount'))?' <strong style="color: green;">Comentarios nuevos: ' + info.newAnswersCount + ' </strong>':'')+'</p></a>' + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
+        });
+        $("#listQuestions").listview('refresh');
+        $.mobile.loading("hide");
+    } else {
+        alert("Se ha producido un error al traer la información desde EspacioDeco, codigo(" + data.status.code + ","+ data.status.message +")");
+    }
 }
 
 // 
@@ -175,16 +201,19 @@ function getQuestionInfo(idQuestion) {
     // mobile/comentarios/thread
     // id(usuario), date
     var 
-    //ws = 'http://www.espaciodeco.com/mobile/comentarios/thread',
-    ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=22', // TODO Comentar
-    userId = localStorage.getItem("user_id"),
+    ws = 'http://www.espaciodeco.com/mobile/comentarios/thread',
+    //ws = 'http://ttg1.pronosticodeltiempo.info/test/mobile.php?check=22', // TODO Comentar
     date = lastLogin;
-    $.post( ws, { id: userId, questionId: idQuestion, date: date }, successQuestionInfo , "json");
+    $.post( ws, {id: idQuestion, date: date }, successQuestionInfo , "json");
 }
 
 
-function successQuestionInfo(data){
-    var 
+function successQuestionInfo(response){
+    var data = response.data;
+    
+    if (response.status.code > 0) {
+    
+        var 
         sQuestion = '<p>Lo preguntaste el '+ data.date +'</p><h1>'+ data.title +'</h1><p>'+ data.content +'</p><img src="'+ data.img +'" alt=""><br/><strong>Comentarios</strong><hr/><div id="comentarios">',
         
         sAnswer = '<div><div style="float: left;width: 15%;"><a class="out" href="#" rel="external" data-ajax="false" %userUrl%><img style="max-width: 95%;" src="img/users/default.jpg"/></a></div><div style="float: left;width: 85%;"><strong %new%>%user%</strong><p>%content%</p></div>';
@@ -242,6 +271,9 @@ function successQuestionInfo(data){
         $.mobile.loading("hide");
         
         $('#contentQuestion').trigger("create");
+    } else {
+        alert("Se ha producido un error al traer la información desde EspacioDeco, codigo(" + response.status.code + ","+ response.status.message +")");
+    }
         
 }
 
