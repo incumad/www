@@ -5,7 +5,12 @@ jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.
 
 zipalign -v 4 /incumad/espaciodeco/platforms/android/ant-build/EspacioDeco-release-unsigned.apk EspacioDeco.apk
 
+
+- Con esto se crea el hash de FB
+
 keytool -exportcert -alias my-release-key.keystore -keystore my-release-key.keystore | openssl sha1 -binary | openssl base64
+
+-
 
 ed2014
 
