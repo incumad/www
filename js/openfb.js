@@ -295,6 +295,7 @@ function loginFB() {
                  
                  //localStorage.setItem("fbToken",response.authResponse.token);
                  //localStorage.setItem("userId",response.authResponse.userID);
+                 $.mobile.loading("show", {textVisible: true,text:'Enviando datos a la aplicación'});
                  getInfoFB();
                  
                  } else {
