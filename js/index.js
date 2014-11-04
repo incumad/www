@@ -51,7 +51,7 @@ function onDeviceReady() {
     destinationType=navigator.camera.DestinationType;
     
 
-    openFB.init({appId: '834951006536042'});
+    openFB.init({appId: '120007504691086'});
     var user_id = localStorage.getItem("user_id");
     if (user_id!==null && user_id!==0){
         $.mobile.changePage("#home");
