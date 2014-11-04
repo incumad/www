@@ -1,7 +1,13 @@
 keytool -genkey -v -keystore my-release-key.keystore -alias espacioDeco -keyalg RSA -keysize 2048 -validity 10000
 
-
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore /incumad/espaciodeco/platforms/android/ant-build/EspacioDeco-release-unsigned.apk espacioDeco
 
 
 zipalign -v 4 /incumad/espaciodeco/platforms/android/ant-build/EspacioDeco-release-unsigned.apk EspacioDeco.apk
+
+keytool -exportcert -alias my-release-key.keystore -keystore my-release-key.keystore | openssl sha1 -binary | openssl base64
+
+ed2014
+
+
+

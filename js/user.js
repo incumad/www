@@ -40,7 +40,7 @@ function succesLogin(data){
          ///si la validacion es correcta, muestra la pantalla "home"
          //localStorage.setItem("name",data.name);
          //localStorage.setItem("email",data.email);
-         localStorage.setItem("user_id",data.id);
+         localStorage.setItem("user_id",data.data.id);
          $.mobile.changePage("#home");
          ga('send', 'event', 'producto', 'login', 'app');
      }else{

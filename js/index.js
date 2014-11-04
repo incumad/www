@@ -35,19 +35,21 @@ function onDeviceReady() {
       // loadHomeBanner();  
    }
    
-   
-   if (parseFloat(window.device.version) >= 7.0) {
-     $('[data-role="header"]').addClass("ios7");
-     $('[data-role="panel"]').addClass("ios7");
-    }
     
     $('a.out').click(function(){
         window.open('http://www.espaciodeco.com?utm_source=edapp', '_system', 'location=no');exit;
     });
 
+   /* TODO descomentar */
+   if (parseFloat(window.device.version) >= 7.0) {
+     $('[data-role="header"]').addClass("ios7");
+     $('[data-role="panel"]').addClass("ios7");
+    }
+    
 
     pictureSource=navigator.camera.PictureSourceType;
     destinationType=navigator.camera.DestinationType;
+    
 
     openFB.init({appId: '834951006536042'});
     var user_id = localStorage.getItem("user_id");
