@@ -24,7 +24,8 @@ function onDeviceReady() {
    
    document.addEventListener("online", onOnline, false);
    document.addEventListener("offline", onOffline, false);
-
+   document.addEventListener("backbutton", backKeyDown, true); 
+   
    lastLogin = localStorage.getItem("last_login");
    if (lastLogin === null) {
         lastLogin = strDate;
@@ -261,3 +262,22 @@ function goUrl(url){
 
 }
 
+
+function backKeyDown(){
+    var last = $.mobile.urlHistory.stack.length - 2;
+    var last_url = $.mobile.urlHistory.stack[last].url;
+    var pageId = last_url.split('#');
+    //caso 1 si el usuario esta logado
+    var user_id = localStorage.getItem("user_id");
+    if (user_id!==null && user_id!==0){
+        if((pageId[1]==='home' && !$.mobile.activePage.is('#home')) || pageId[1]==='nueva-idea' || pageId[1]==='ver-ideas'){
+           navigator.app.backHistory()
+        }
+    }else{
+        if((pageId[1]==='inicio'&& !$.mobile.activePage.is('#inicio')) || pageId[1]==='new_user'){
+           navigator.app.backHistory()
+        } 
+    }
+    
+    
+}
