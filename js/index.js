@@ -270,14 +270,14 @@ function backKeyDown(){
     //caso 1 si el usuario esta logado
     var user_id = localStorage.getItem("user_id");
     if (user_id!==null && user_id!==0){
-        if((pageId[1]==='home' && !$.mobile.activePage.is('#home')) || pageId[1]==='nueva-idea' || pageId[1]==='ver-ideas'){
-           navigator.app.backHistory()
+        if($.mobile.activePage.is('#home')) {
+            navigator.app.exitApp();
+        } else if(pageId[1]==='home' || pageId[1]==='nueva-idea' || pageId[1]==='ver-ideas'){
+           navigator.app.backHistory();
         }
     }else{
         if((pageId[1]==='inicio'&& !$.mobile.activePage.is('#inicio')) || pageId[1]==='new_user'){
-           navigator.app.backHistory()
+           navigator.app.backHistory();
         } 
     }
-    
-    
 }

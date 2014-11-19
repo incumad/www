@@ -185,9 +185,13 @@ function getQuestionList() {
 //
 function successQuestionList(data) {
     if (data.status.code == 1) {
-        $.each(data.data, function(position, info){
-            $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#"><div style="width:80px;height:80px;overflow:hidden; float:left;margin-right:10px;"><img style="max-height: 120px;max-width: 120px;" src="' + info.img +  '" /></div><h2'+ ((info.hasOwnProperty('newAnswersCount'))?' style="color: green;"':'')+'>' + info.title +  '</h2><p>' + info.date + ((info.hasOwnProperty('newAnswersCount'))?' <strong style="color: green;">Comentarios nuevos: ' + info.newAnswersCount + ' </strong>':'')+'</p></a>' + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
-        });
+        if (data.data.length > 0) {
+            $.each(data.data, function(position, info){
+                $('#listQuestions').append('<li><a onclick="idQuestionActive=\'' + info.id +  '\';$.mobile.changePage(\'#question\');" href="#"><div style="width:80px;height:80px;overflow:hidden; float:left;margin-right:10px;"><img style="max-height: 120px;max-width: 120px;" src="' + info.img +  '" /></div><h2'+ ((info.hasOwnProperty('newAnswersCount'))?' style="color: green;"':'')+'>' + info.title +  '</h2><p>' + info.date + ((info.hasOwnProperty('newAnswersCount'))?' <strong style="color: green;">Comentarios nuevos: ' + info.newAnswersCount + ' </strong>':'')+'</p></a>' + ((info.hasOwnProperty('answersCount'))?'<span class="ui-li-count  ui-body-inherit">' + info.answersCount + '</span>':'')  +  '</li>');
+            });
+        } else {
+            $('#listQuestions').append('<li><a onclick="$.mobile.changePage(\'#nueva-idea\');" href="#">No has hecho ninguna pregunta todavía<br/>Animate y haz click! para preguntar</a></li>');
+        }
         $("#listQuestions").listview('refresh');
         $.mobile.loading("hide");
     } else {
