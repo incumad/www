@@ -4,6 +4,7 @@ var d = new Date();
 var lastLogin = '';
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
 var dataBanner = new Array();
+var totalSlide = 0;
 
 // Wait for device API libraries to load
 
@@ -138,6 +139,7 @@ function loadHomeBanner(){
 
 function succesHomeBanner(response){
     var data = response.data;
+    totalSlide = data.length;
     var html ='';  
     $.each( data, function( key, value ) {
                 //alert( key + ": " + value.img );
@@ -148,7 +150,25 @@ function succesHomeBanner(response){
      var mySwiper = new Swiper('.swiper-container',{
                     pagination: '.pagination',
                     paginationClickable: true,
-                    calculateHeight:true
+                    calculateHeight:true,
+                    onTouchEnd: function(swiper){
+                        var index = swiper.previousIndex;
+                        if (index===(totalSlide-2)){
+                            $.mobile.loading("show", {textVisible: true,text:'Loading'});
+                            var url  = "http://www.espaciodeco.com/mobile/projects/list";
+                            $.post(url, { start:totalSlide ,limit:10},function(data){
+                                $.each( data.data, function( key, value ) {
+                                    dataBanner[value.id] = value;
+                                    var newSlide = swiper.createSlide('<img src="'+value.img+'" alt="" onclick="getInfoProject(\''+value.id+'\')">');
+                                    newSlide.append();
+                                });
+                                setTimeout(function(){$.mobile.loading("hide");},2000);
+                                totalSlide = totalSlide +10;
+                            
+                            },'json');
+                         
+                        }
+                    }
                   });
 }
 
