@@ -3,6 +3,7 @@ var destinationType; // sets the format of returned value
 var d = new Date();
 var lastLogin = '';
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+var dataBanner = new Array();
 
 // Wait for device API libraries to load
 
@@ -140,7 +141,8 @@ function succesHomeBanner(response){
     var html ='';  
     $.each( data, function( key, value ) {
                 //alert( key + ": " + value.img );
-                     html+='<div class="swiper-slide"><img src="'+value.img+'" alt="" onclick="goUrl(\''+value.url+'\')"></div>';
+                     dataBanner[value.id] = value;
+                     html+='<div class="swiper-slide"><img src="'+value.img+'" alt="" onclick="getInfoProject(\''+value.id+'\')"></div>';
    });
    $('.swiper-wrapper').html(html);
      var mySwiper = new Swiper('.swiper-container',{
@@ -280,4 +282,15 @@ function backKeyDown(){
            navigator.app.backHistory();
         } 
     }
+}
+
+
+
+function getInfoProject(id){
+    var data = dataBanner[id];
+    $('#tit_project').html(data.info);
+    $('#img_project').html('<img src="'+data.img+'" style="max-height: 120px;max-width: 120px;" >');
+    $('#info_project').html(data.detail);
+    $('#url_project').attr("onclick","goUrl('"+data.url+"')");
+    $.mobile.changePage("#info-project");
 }

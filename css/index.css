@@ -118,3 +118,15 @@ label.error, label.error {
     -o-background-size: cover;
     background-size: cover;
 }
+
+
+
+.content-info{
+    background: none repeat scroll 0 0 #fff;
+    border-bottom: 1px solid #c8c7cc;
+    border-top: 1px solid #c8c7cc;
+    color: #000;
+    margin-left: -15px;
+    padding: 10px 15px;
+    width: 100%;
+}
