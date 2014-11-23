@@ -289,6 +289,7 @@ function backKeyDown(){
 function getInfoProject(id){
     var data = dataBanner[id];
     $('#tit_project').html(data.info);
+    $('#tit_project_h4').html(data.info);
     $('#img_project').html('<img src="'+data.img+'" style="max-height: 120px;max-width: 120px;" >');
     $('#info_project').html(data.detail);
     $('#url_project').attr("onclick","goUrl('"+data.url+"')");
